@@ -54,8 +54,8 @@ pipeline {
                     docker run --rm ${APP_IMAGE}:${BUILD_NUMBER} sh -c "test -f assets/custom.js && echo '✅ custom.js найден' || (echo '❌ custom.js НЕ НАЙДЕН' && exit 1)"
 
                     # Проверяем, что файлы не пустые (опционально)
-                    CSS_SIZE=\$(docker run --rm ${APP_IMAGE}:${BUILD_NUMBER} sh -c "wc -c < app/assets/style.css 2>/dev/null || echo 0")
-                    JS_SIZE=\$(docker run --rm ${APP_IMAGE}:${BUILD_NUMBER} sh -c "wc -c < app/assets/custom.js 2>/dev/null || echo 0")
+                    CSS_SIZE=\$(docker run --rm ${APP_IMAGE}:${BUILD_NUMBER} sh -c "wc -c < assets/style.css 2>/dev/null || echo 0")
+                    JS_SIZE=\$(docker run --rm ${APP_IMAGE}:${BUILD_NUMBER} sh -c "wc -c < assets/custom.js 2>/dev/null || echo 0")
 
                     echo "📊 Размер style.css: \$CSS_SIZE байт"
                     echo "📊 Размер custom.js: \$JS_SIZE байт"
@@ -140,6 +140,7 @@ pipeline {
     }
 
 }
+
 
 
 
