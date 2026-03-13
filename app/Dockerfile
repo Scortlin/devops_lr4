@@ -25,6 +25,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Копирование кода приложения и ML-модели
 COPY dashboard.py loader.py ml_model.py ./
 
+COPY assets/ ./assets/
+
 # Создаем пустой pkl-файл и даем права на запись
 RUN touch roi_model.pkl && chown appuser:appuser roi_model.pkl && chmod 666 roi_model.pkl
 # Даем права на всю директорию appuser'у
@@ -37,4 +39,5 @@ USER appuser
 EXPOSE 8050
 
 # Точка входа по умолчанию — дашборд через gunicorn
+
 CMD ["gunicorn", "--bind", "0.0.0.0:8050", "--timeout", "120", "dashboard:server"]
