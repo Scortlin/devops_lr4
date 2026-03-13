@@ -48,10 +48,10 @@ pipeline {
                 echo '🔍 Проверка статических файлов (CSS/JS)...'
                 sh """
                     # Проверяем наличие CSS файла
-                    docker run --rm ${APP_IMAGE}:${BUILD_NUMBER} sh -c "test -f app/assets/style.css && echo '✅ style.css найден' || (echo '❌ style.css НЕ НАЙДЕН' && exit 1)"
+                    docker run --rm ${APP_IMAGE}:${BUILD_NUMBER} sh -c "test -f assets/style.css && echo '✅ style.css найден' || (echo '❌ style.css НЕ НАЙДЕН' && exit 1)"
 
                     # Проверяем наличие JS файла
-                    docker run --rm ${APP_IMAGE}:${BUILD_NUMBER} sh -c "test -f app/assets/custom.js && echo '✅ custom.js найден' || (echo '❌ custom.js НЕ НАЙДЕН' && exit 1)"
+                    docker run --rm ${APP_IMAGE}:${BUILD_NUMBER} sh -c "test -f assets/custom.js && echo '✅ custom.js найден' || (echo '❌ custom.js НЕ НАЙДЕН' && exit 1)"
 
                     # Проверяем, что файлы не пустые (опционально)
                     CSS_SIZE=\$(docker run --rm ${APP_IMAGE}:${BUILD_NUMBER} sh -c "wc -c < app/assets/style.css 2>/dev/null || echo 0")
@@ -140,5 +140,6 @@ pipeline {
     }
 
 }
+
 
 
