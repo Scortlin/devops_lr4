@@ -1,0 +1,9 @@
+dash==4.0.0
+pandas==3.0.1
+psycopg2-binary==2.9.11
+plotly==6.6.0
+sqlalchemy==2.0.48
+gunicorn==25.1.0
+scikit-learn==1.8.0
+joblib==1.5.3
+numpy==2.4.3
