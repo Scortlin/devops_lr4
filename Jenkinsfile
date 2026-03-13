@@ -94,8 +94,8 @@ pipeline {
                         error("Тестовый запуск не удался")
                     } finally {
                         // Останавливаем и удаляем тестовый контейнер
-                        sh 'docker stop test-' + BUILD_NUMBER
-                        sh 'docker rm test-' + BUILD_NUMBER
+                        sh 'docker stop test-' + BUILD_NUMBER || true
+                        sh 'docker rm test-' + BUILD_NUMBER || true
                     }
                 }
             }
@@ -140,6 +140,7 @@ pipeline {
     }
 
 }
+
 
 
 
