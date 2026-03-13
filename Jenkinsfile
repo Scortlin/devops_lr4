@@ -73,29 +73,30 @@ pipeline {
                 echo '🧪 Тестовый запуск контейнера...'
                 script {
                     try {
+                        sh "docker stop test-${BUILD_NUMBER} || true"
+                        sh "docker rm test-${BUILD_NUMBER} || true"
+                        
                         // Запускаем контейнер в фоне
                         sh """
                             docker run -d --name test-${BUILD_NUMBER} \
                                 -p 8051:8050 \
                                 ${APP_IMAGE}:${BUILD_NUMBER}
                         """
-
-                        // Ждем 15 секунд для инициализации
                         sleep(15)
 
                         // Проверяем, что контейнер работает
-                        sh 'docker ps | grep test-' + BUILD_NUMBER
+                        sh "docker ps | grep test-${BUILD_NUMBER}"
 
                         echo "✅ Тестовый запуск успешен"
                     } catch (Exception e) {
                         echo "❌ Ошибка при тестовом запуске: ${e}"
                         // Сохраняем логи для диагностики
-                        sh 'docker logs test-' + BUILD_NUMBER
+                        sh "docker logs test-${BUILD_NUMBER} || true"
                         error("Тестовый запуск не удался")
                     } finally {
                         // Останавливаем и удаляем тестовый контейнер
-                        sh 'docker stop test-' + BUILD_NUMBER || true
-                        sh 'docker rm test-' + BUILD_NUMBER || true
+                        sh "docker stop test-${BUILD_NUMBER} || true"
+                        sh "docker rm test-${BUILD_NUMBER} || true"
                     }
                 }
             }
@@ -140,6 +141,7 @@ pipeline {
     }
 
 }
+
 
 
 
