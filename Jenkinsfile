@@ -36,7 +36,7 @@ pipeline {
                 echo '🏗️  Сборка Docker образа...'
                 sh """
                     cd app
-                    docker build --no-cache -t ${APP_IMAGE}:${BUILD_NUMBER} .
+                    docker build -t ${APP_IMAGE}:${BUILD_NUMBER} .
                     docker tag ${APP_IMAGE}:${BUILD_NUMBER} ${APP_IMAGE}:latest
                 """
             }
@@ -140,4 +140,5 @@ pipeline {
     }
 
 }
+
 
