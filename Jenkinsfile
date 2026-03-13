@@ -17,10 +17,17 @@ pipeline {
         stage('Linting') {
             steps {
                 echo '🔍 Проверка стиля кода Python...'
-                sh '''
+                sh """
+                    # Создать виртуальное окружение
+                    python3 -m venv venv
+                    # Активировать и установить pylint
+                    . venv/bin/activate
                     pip install pylint
+                    # Запустить проверку
                     pylint --fail-under=5.0 app/*.py || echo "⚠️  Есть замечания, но продолжаем"
-                '''
+                    # Деактивировать
+                    deactivate
+                """
             }
         }
 
@@ -131,4 +138,5 @@ pipeline {
             sh 'docker system prune -f || true'
         }
     }
+
 }
