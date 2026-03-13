@@ -27,6 +27,9 @@ COPY dashboard.py loader.py ml_model.py ./
 
 COPY assets/ ./assets/
 
+RUN test -f assets/style.css || (echo "ERROR: style.css missing" && exit 1) && \
+    test -f assets/custom.js || (echo "ERROR: custom.js missing" && exit 1)
+
 # Создаем пустой pkl-файл и даем права на запись
 RUN touch roi_model.pkl && chown appuser:appuser roi_model.pkl && chmod 666 roi_model.pkl
 # Даем права на всю директорию appuser'у
@@ -41,3 +44,4 @@ EXPOSE 8050
 # Точка входа по умолчанию — дашборд через gunicorn
 
 CMD ["gunicorn", "--bind", "0.0.0.0:8050", "--timeout", "120", "dashboard:server"]
+
