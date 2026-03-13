@@ -73,8 +73,8 @@ pipeline {
                 echo '🧪 Тестовый запуск контейнера...'
                 script {
                     try {
-                        sh "docker stop test-${BUILD_NUMBER} || true"
-                        sh "docker rm test-${BUILD_NUMBER} || true"
+                        sh "docker stop test-15 || true"
+                        sh "docker rm test-15 || true"
                         
                         // Запускаем контейнер в фоне
                         sh """
