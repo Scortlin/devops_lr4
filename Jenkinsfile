@@ -4,12 +4,6 @@ pipeline {
     environment {
         APP_IMAGE = "my-roi-app"
         BUILD_NUMBER = "${BUILD_NUMBER}"
-
-        DB_HOST = "host.docker.internal"  // Для Windows
-        DB_PORT = "5432"
-        POSTGRES_DB = "marketing_db"
-        POSTGRES_USER = "marketing_user"
-        POSTGRES_PASSWORD = "strong_password_123"
     }
 
     stages {
@@ -86,11 +80,6 @@ pipeline {
                         sh """
                             docker run -d --name test-${BUILD_NUMBER} \
                                 -p 8051:8050 \
-                                -e DB_HOST=${DB_HOST} \
-                                -e DB_PORT=${DB_PORT} \
-                                -e POSTGRES_DB=${POSTGRES_DB} \
-                                -e POSTGRES_USER=${POSTGRES_USER} \
-                                -e POSTGRES_PASSWORD=${POSTGRES_PASSWORD} \
                                 ${APP_IMAGE}:${BUILD_NUMBER}
                         """
                         sleep(15)
