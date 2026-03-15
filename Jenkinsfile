@@ -38,6 +38,7 @@ pipeline {
                     cd app
                     docker build -t ${APP_IMAGE}:${BUILD_NUMBER} .
                     docker tag ${APP_IMAGE}:${BUILD_NUMBER} ${APP_IMAGE}:latest
+                """
             }
         }
 
